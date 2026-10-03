@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d7d0c3">
+  <meta name="description" content="Ola's menu. Build an order and text it from your phone. Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time.">
+  <title>Ola's — Text your order</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23161616'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='40' fill='white' font-family='sans-serif' font-weight='700'%3EO%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#order">Skip to your order</a>
+  <div class="wrap">
+    <header class="mast">
+      <p class="eyebrow">Text your order</p>
+      <h1 class="logo">Ola's</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="phone-line">Texts go to 505-288-7576</p>
+      <p class="hours">Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time</p>
+      <p id="status" class="status" role="status">Checking hours</p>
+      <p id="clock" class="clock"></p>
+    </header>
+
+    <div class="sheets">
+      <section class="sheet" id="breakfast" aria-label="Breakfast"></section>
+      <section class="sheet" id="lunch" aria-label="Lunch"></section>
+    </div>
+    <section class="sheet" id="sides" aria-label="Sides" style="margin-top:1rem"></section>
+
+    <section class="ticket" id="order" aria-label="Your order">
+      <h2>Your order</h2>
+      <div id="cart-lines"></div>
+      <p id="subtotal">Priced subtotal: —</p>
+      <p id="tax-note">Tax is not included.</p>
+
+      <label class="form-row" for="cust-name"><span>Name</span>
+        <input id="cust-name" name="name" type="text" maxlength="60" autocomplete="name" enterkeyhint="next">
+      </label>
+      <label class="form-row" for="cust-phone"><span>Phone</span>
+        <input id="cust-phone" name="phone" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" enterkeyhint="next">
+      </label>
+
+      <fieldset class="diets">
+        <legend>Diet requests</legend>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="diet" value="dairy free"> Dairy free</label>
+          <label class="chip"><input type="checkbox" name="diet" value="gluten free"> Gluten free</label>
+          <label class="chip"><input type="checkbox" name="diet" value="meat free"> Meat free</label>
+        </div>
+      </fieldset>
+
+      <label class="notes" for="cust-notes"><span>Notes</span>
+        <textarea id="cust-notes" name="notes" maxlength="240" placeholder="Anything Ola’s should know"></textarea>
+      </label>
+
+      <h3 class="preview-label">Text that will be filled in</h3>
+      <pre id="preview" class="preview">Add items from the menu. The text Ola’s will receive shows here.</pre>
+      <p id="send-hint" class="hint" role="status"></p>
+      <div id="action-slot"></div>
+      <button type="button" id="copy-order" disabled>Copy order text</button>
+      <p class="fine">You send the text yourself. This page does not charge a card and does not send a message on its own. Prices are as posted. Tax is extra. Daily specials are inquire. Beans are not on the menu.</p>
+    </section>
+
+    <p class="foot">Ola’s · Albuquerque area · 505-288-7576</p>
+  </div>
+  <div id="dock" class="dock" hidden></div>
+  <noscript><p>Turn on JavaScript to build a text order.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
