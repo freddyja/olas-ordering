@@ -384,26 +384,21 @@ function showShareQr() {
 function shareSite() {
   showShareQr();
   const shareData = {
-    title: "Ola's — Text your order",
+    title: "Ola's ordering",
     text: "Build an order and text it to Ola's.",
     url: LIVE_URL,
   };
   if (navigator.share) {
-    try {
-      navigator.share(shareData).catch((error) => {
-        if (!error || error.name !== 'AbortError') {
-          copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
-            showToast('Copy the link from the address bar');
-          });
-        }
+    navigator.share(shareData).catch((error) => {
+      if (error && error.name === 'AbortError') return;
+      copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
+        showToast('QR ready — or copy the link below');
       });
-      return;
-    } catch {
-      /* clipboard fallback */
-    }
+    });
+    return;
   }
-  copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
-    showToast('Copy the link from the address bar');
+  copyLiveUrl().then(() => showToast('Link copied — QR is ready too')).catch(() => {
+    showToast('QR ready — use Copy link');
   });
 }
 
