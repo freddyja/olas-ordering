@@ -417,17 +417,15 @@ function updateInstallUi() {
   const tip = $('install-tip');
   if (!button || !tip) return;
   if (browserIsStandalone()) {
+    button.hidden = false;
     button.disabled = true;
     button.textContent = 'Installed';
     tip.hidden = true;
     return;
   }
+  button.hidden = false;
   button.disabled = false;
   button.textContent = 'Install';
-  if (deferredInstallPrompt) {
-    tip.hidden = true;
-    return;
-  }
   tip.hidden = true;
 }
 
