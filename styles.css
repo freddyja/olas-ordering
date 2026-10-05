@@ -92,10 +92,7 @@ body {
 .address { margin: .35rem 0 0; font-weight: 750; color: #fff8ee; }
 .address a, .foot a {
   color: #fff8ee;
-  text-decoration: underline;
-  text-decoration-color: #ffc857;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 2px;
+  text-decoration: none;
 }
 .address a:hover, .foot a:hover { color: #ffc857; }
 .hours { margin: .2rem 0 .7rem; }
