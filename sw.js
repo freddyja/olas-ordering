@@ -1,4 +1,4 @@
-const CACHE_NAME = "olas-ordering-v6";
+const CACHE_NAME = "olas-ordering-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,8 +8,8 @@ const APP_SHELL = [
   "./qr-code.js",
   "./manifest.webmanifest",
   "./icons/ola-192.png",
-  "./icons/ola-512.png,
-  "./icons/route66-shield.svg"",
+  "./icons/ola-512.png",
+  "./icons/route66-shield.svg",
   "./sw.js"
 ];
 
