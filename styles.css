@@ -45,22 +45,20 @@ body {
 
 .mast { text-align: center; margin-bottom: 1rem; }
 .mast-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  text-align: left;
+  position: relative;
+  display: block;
+  text-align: center;
+  min-height: 3.5rem;
 }
 .mast-brand {
   min-width: 0;
-  flex: 1;
 }
 .logo {
   margin: .15rem 0 .2rem;
   font-family: Futura, "Avenir Next Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: clamp(2.8rem, 12vw, 5.5rem);
-  line-height: .9;
+  font-weight: 800;
+  font-size: clamp(3.8rem, 16vw, 6.75rem);
+  line-height: .8;
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }
@@ -321,17 +319,20 @@ body.is-closed .send:disabled { background: var(--red); border-color: var(--red)
   text-transform: uppercase;
 }
 
-/* Share + Install — same placement as Balloon Festival crew app */
+/* Share + Install — Balloon-style mast-top corner, name stays prominent */
 .mast {
   position: relative;
   padding-top: .35rem;
 }
 .quick-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 6px;
-  flex: 0 0 auto;
   margin: 0;
   min-width: 88px;
   pointer-events: auto;
@@ -465,6 +466,8 @@ body.is-closed .send:disabled { background: var(--red); border-color: var(--red)
   .share-panel-copy { align-items: center; }
   .action-btn.share-copy { align-self: center; }
   .share-qr { justify-self: center; width: min(100%, 220px); }
-  .quick-actions { min-width: 88px; }
-  .action-btn { font-size: 0.85rem; padding: 0 10px; }
+  .logo { font-size: clamp(3.4rem, 15vw, 5.5rem); }
+  .quick-actions { min-width: 80px; }
+  .action-btn { font-size: 0.85rem; padding: 0 10px; min-height: 38px; }
 }
+
