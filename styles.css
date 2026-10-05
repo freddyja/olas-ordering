@@ -332,22 +332,22 @@ body.is-closed .send:disabled { background: var(--red); border-color: var(--red)
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 6px;
+  gap: 4px;
   margin: 0;
-  min-width: 88px;
+  min-width: 72px;
   pointer-events: auto;
   touch-action: manipulation;
 }
 .action-btn {
-  min-height: 40px;
-  padding: 0 12px;
+  min-height: 34px;
+  padding: 0 9px;
   border: 1px solid #ffc857;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #2a2016;
   color: #ffc857;
   font: inherit;
   font-weight: 850;
-  font-size: 0.92rem;
+  font-size: 0.78rem;
   box-shadow: 0 2px 0 rgba(255, 200, 87, 0.18);
   white-space: nowrap;
   cursor: pointer;
@@ -467,7 +467,7 @@ body.is-closed .send:disabled { background: var(--red); border-color: var(--red)
   .action-btn.share-copy { align-self: center; }
   .share-qr { justify-self: center; width: min(100%, 220px); }
   .logo { font-size: clamp(3.4rem, 15vw, 5.5rem); }
-  .quick-actions { min-width: 80px; }
-  .action-btn { font-size: 0.85rem; padding: 0 10px; min-height: 38px; }
+  .quick-actions { min-width: 66px; }
+  .action-btn { font-size: 0.72rem; padding: 0 8px; min-height: 32px; }
 }
 
