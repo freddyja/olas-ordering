@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#161616">
-  <meta name="description" content="Ola's menu. Build an order and text it from your phone. Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time.">
+  <meta name="description" content="Ola's Route 66 Lunch Box menu. Build an order and text it from your phone. Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Ola's">
+  <meta name="apple-mobile-web-app-title" content="Ola's R66">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/ola-180.png">
-  <title>Ola's ordering</title>
+  <title>Ola's Route 66 Lunch Box</title>
   <link rel="icon" href="icons/ola-192.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -20,7 +20,11 @@
     <header class="mast">
       <div class="mast-top">
         <div class="mast-brand">
-          <h1 class="logo">Ola's</h1>
+          <h1 class="logo">
+            <span class="logo-ola">Ola's</span>
+            <img class="route66-emblem" src="icons/route66-shield.svg" width="72" height="72" alt="Route 66">
+            <span class="logo-rest">Lunch Box</span>
+          </h1>
         </div>
         <div class="quick-actions" aria-label="Site actions">
           <button type="button" class="action-btn" id="share-site">Share</button>
@@ -35,7 +39,7 @@
       <section class="share-panel" id="share-panel" aria-labelledby="share-panel-title" hidden>
         <div class="share-panel-copy">
           <p class="share-kicker">Share the menu</p>
-          <h2 id="share-panel-title">Scan to open Ola's ordering</h2>
+          <h2 id="share-panel-title">Scan to open Ola's Route 66 Lunch Box</h2>
           <p class="share-note">Point your phone camera at this code.</p>
           <button type="button" class="action-btn share-copy" id="copy-share-link">Copy link</button>
         </div>
@@ -74,7 +78,7 @@
       </fieldset>
 
       <label class="notes" for="cust-notes"><span>Notes</span>
-        <textarea id="cust-notes" name="notes" maxlength="240" placeholder="Anything Ola’s should know"></textarea>
+        <textarea id="cust-notes" name="notes" maxlength="240" placeholder="Anything we should know"></textarea>
       </label>
 
       <h3 class="preview-label">Text that will be filled in</h3>
@@ -85,7 +89,7 @@
       <p class="fine">You send the text yourself. This page does not charge a card and does not send a message on its own. Prices are as posted. Tax is extra. Daily specials are inquire. Beans are not on the menu.</p>
     </section>
 
-    <p class="foot">Ola’s · Albuquerque area · 505-288-7576</p>
+    <p class="foot">Ola’s Route 66 Lunch Box · Albuquerque area · 505-288-7576</p>
   </div>
   <div id="dock" class="dock" hidden></div>
   <noscript><p>Turn on JavaScript to build a text order.</p></noscript>

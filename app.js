@@ -371,8 +371,8 @@ function showShareQr() {
       cellSize: 4,
       margin: 16,
       scalable: true,
-      alt: { text: "QR code for Ola's ordering" },
-      title: { text: "Scan to open Ola's ordering" },
+      alt: { text: "QR code for Ola's Route 66 Lunch Box" },
+      title: { text: "Scan to open Ola's Route 66 Lunch Box" },
     });
     target.setAttribute('data-url', LIVE_URL);
   } catch {
@@ -384,8 +384,8 @@ function showShareQr() {
 function shareSite() {
   showShareQr();
   const shareData = {
-    title: "Ola's ordering",
-    text: "Build an order and text it to Ola's.",
+    title: "Ola's Route 66 Lunch Box",
+    text: "Build an order and text it to Ola's Route 66 Lunch Box.",
     url: LIVE_URL,
   };
   if (navigator.share) {

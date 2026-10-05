@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Route 66">
+  <defs>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f0f0f0"/>
+    </linearGradient>
+  </defs>
+  <path d="M18 10 H102 Q110 10 110 18 V58 Q110 78 96 92 L60 114 L24 92 Q10 78 10 58 V18 Q10 10 18 10 Z"
+        fill="#111" stroke="#ffc857" stroke-width="4"/>
+  <path d="M24 16 H96 Q102 16 102 22 V56 Q102 74 90 86 L60 106 L30 86 Q18 74 18 56 V22 Q18 16 24 16 Z"
+        fill="url(#shine)"/>
+  <text x="60" y="40" text-anchor="middle" font-family="Arial Black, Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="800" fill="#111" letter-spacing="2">ROUTE</text>
+  <text x="60" y="88" text-anchor="middle" font-family="Arial Black, Helvetica, Arial, sans-serif"
+        font-size="52" font-weight="900" fill="#111">66</text>
+</svg>

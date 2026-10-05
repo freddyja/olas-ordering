@@ -1,7 +1,7 @@
 {
-  "name": "Ola's — Text your order",
-  "short_name": "Ola's",
-  "description": "Ola's menu. Build an order and text it from your phone.",
+  "name": "Ola's Route 66 Lunch Box",
+  "short_name": "Ola's R66",
+  "description": "Ola's Route 66 Lunch Box menu. Build an order and text it from your phone.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
