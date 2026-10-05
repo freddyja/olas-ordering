@@ -216,7 +216,7 @@ function formState() {
   const name = $('cust-name').value.trim();
   const phoneDigits = $('cust-phone').value.replace(/\D/g, '');
   if (!open) {
-    return { ok: false, hint: 'Ordering is closed. The menu stays up so you can look, but the text button stays off until Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time.' };
+    return { ok: false, hint: 'Ordering is closed. The menu stays up so you can look, but the text button stays off until Wednesday–Saturday, 8:00 AM–1:00 PM MT.' };
   }
   if (!cart.length) return { ok: false, hint: 'Add at least one item.' };
   if (!/[A-Za-z]/.test(name)) return { ok: false, hint: 'Enter the name for the order.' };

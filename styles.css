@@ -334,6 +334,7 @@ body.is-closed .send:disabled { background: var(--red); border-color: var(--red)
 .dock button { background: #fff; }
 
 .foot {
+  text-align: center;
   margin: 1rem 0 0;
   font-size: .92rem;
 }
