@@ -488,11 +488,35 @@ function initSiteActions() {
     });
   }
   initInstall();
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((reg) => {
-      if (reg && typeof reg.update === 'function') reg.update();
-    }).catch(() => { /* file:// / unsupported hosts */ });
+  setupAutoUpdate();
+}
+
+function setupAutoUpdate() {
+  if (!('serviceWorker' in navigator)) return;
+  var refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+
+  function checkForUpdate(reg) {
+    if (!reg || typeof reg.update !== 'function') return;
+    reg.update().catch(function () {});
+    if (reg.waiting) {
+      try { reg.waiting.postMessage({ type: 'SKIP_WAITING' }); } catch (e) {}
+    }
   }
+
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function (reg) {
+    checkForUpdate(reg);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') checkForUpdate(reg);
+    });
+    window.addEventListener('pageshow', function () { checkForUpdate(reg); });
+    window.addEventListener('focus', function () { checkForUpdate(reg); });
+    setInterval(function () { checkForUpdate(reg); }, 60 * 60 * 1000);
+  }).catch(function () { /* file:// / unsupported hosts */ });
 }
 
 function wire() {

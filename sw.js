@@ -1,4 +1,4 @@
-const CACHE_NAME = "olas-ordering-v2";
+const CACHE_NAME = "olas-ordering-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -71,4 +71,11 @@ self.addEventListener("fetch", (event) => {
       return Promise.reject(new Error("offline"));
     }))
   );
+});
+
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
