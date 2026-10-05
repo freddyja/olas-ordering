@@ -3,16 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#d7d0c3">
+  <meta name="theme-color" content="#161616">
   <meta name="description" content="Ola's menu. Build an order and text it from your phone. Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ola's">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/ola-180.png">
   <title>Ola's — Text your order</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23161616'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='40' fill='white' font-family='sans-serif' font-weight='700'%3EO%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="icons/ola-192.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip" href="#order">Skip to your order</a>
   <div class="wrap">
     <header class="mast">
+      <div class="quick-actions" aria-label="Site actions">
+        <button type="button" class="action-btn" id="share-site">Share</button>
+        <button type="button" class="action-btn" id="install-app">Install</button>
+      </div>
       <p class="eyebrow">Text your order</p>
       <h1 class="logo">Ola's</h1>
       <div class="rule" aria-hidden="true"></div>
@@ -20,6 +29,17 @@
       <p class="hours">Wednesday–Saturday, 8:00 AM–1:00 PM Mountain time</p>
       <p id="status" class="status" role="status">Checking hours</p>
       <p id="clock" class="clock"></p>
+      <section class="share-panel" id="share-panel" aria-labelledby="share-panel-title" hidden>
+        <div class="share-panel-copy">
+          <p class="share-kicker">Share the menu</p>
+          <h2 id="share-panel-title">Scan to open Ola's ordering</h2>
+          <p class="share-note">Point your phone camera at this code.</p>
+          <button type="button" class="action-btn share-copy" id="copy-share-link">Copy link</button>
+        </div>
+        <div class="share-qr" id="share-qr"></div>
+      </section>
+      <p class="action-tip" id="install-tip" role="status" hidden></p>
+      <p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
     </header>
 
     <div class="sheets">
@@ -66,6 +86,7 @@
   </div>
   <div id="dock" class="dock" hidden></div>
   <noscript><p>Turn on JavaScript to build a text order.</p></noscript>
+  <script src="qr-code.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

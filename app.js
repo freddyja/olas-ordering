@@ -315,7 +315,188 @@ function refreshHours() {
   updateTicket();
 }
 
+
+const LIVE_URL = 'https://computingmadeeasy.org/olas-ordering/';
+let deferredInstallPrompt = null;
+let toastTimer = null;
+
+function showToast(message) {
+  const toast = $('toast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.hidden = false;
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => { toast.hidden = true; }, 2200);
+}
+
+function copyLiveUrl() {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(LIVE_URL);
+  }
+  return new Promise((resolve, reject) => {
+    const area = document.createElement('textarea');
+    area.value = LIVE_URL;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch { copied = false; }
+    document.body.removeChild(area);
+    if (copied) resolve();
+    else reject(new Error('Clipboard unavailable'));
+  });
+}
+
+function showShareQr() {
+  const panel = $('share-panel');
+  const target = $('share-qr');
+  if (!panel || !target) return;
+  panel.hidden = false;
+  if (target.getAttribute('data-url') === LIVE_URL) return;
+  target.replaceChildren();
+  target.classList.remove('qr-error');
+  const makeQr = window.qrcode;
+  if (typeof makeQr !== 'function') {
+    target.classList.add('qr-error');
+    target.textContent = 'QR code unavailable. Copy the link instead.';
+    return;
+  }
+  try {
+    const code = makeQr(0, 'M');
+    code.addData(LIVE_URL);
+    code.make();
+    target.innerHTML = code.createSvgTag({
+      cellSize: 4,
+      margin: 16,
+      scalable: true,
+      alt: { text: "QR code for Ola's ordering" },
+      title: { text: "Scan to open Ola's ordering" },
+    });
+    target.setAttribute('data-url', LIVE_URL);
+  } catch {
+    target.classList.add('qr-error');
+    target.textContent = 'QR code unavailable. Copy the link instead.';
+  }
+}
+
+function shareSite() {
+  showShareQr();
+  const shareData = {
+    title: "Ola's — Text your order",
+    text: "Build an order and text it to Ola's.",
+    url: LIVE_URL,
+  };
+  if (navigator.share) {
+    try {
+      navigator.share(shareData).catch((error) => {
+        if (!error || error.name !== 'AbortError') {
+          copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
+            showToast('Copy the link from the address bar');
+          });
+        }
+      });
+      return;
+    } catch {
+      /* clipboard fallback */
+    }
+  }
+  copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
+    showToast('Copy the link from the address bar');
+  });
+}
+
+function browserIsStandalone() {
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+    || navigator.standalone === true;
+}
+
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function updateInstallUi() {
+  const button = $('install-app');
+  const tip = $('install-tip');
+  if (!button || !tip) return;
+  if (browserIsStandalone()) {
+    button.disabled = true;
+    button.textContent = 'Installed';
+    tip.hidden = true;
+    return;
+  }
+  button.disabled = false;
+  button.textContent = 'Install';
+  if (deferredInstallPrompt) {
+    tip.hidden = true;
+    return;
+  }
+  tip.hidden = true;
+}
+
+function showInstallTip() {
+  const tip = $('install-tip');
+  if (!tip) return;
+  tip.hidden = false;
+  tip.textContent = isIOS()
+    ? 'On iPhone/iPad: tap Share → Add to Home Screen.'
+    : 'One-tap install is unavailable here. Use your browser menu → Install app / Add to Home Screen.';
+}
+
+function initInstall() {
+  const button = $('install-app');
+  if (!button) return;
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    updateInstallUi();
+  });
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    updateInstallUi();
+    showToast('Installed');
+  });
+  button.addEventListener('click', () => {
+    if (browserIsStandalone()) {
+      updateInstallUi();
+      return;
+    }
+    if (!deferredInstallPrompt) {
+      showInstallTip();
+      return;
+    }
+    const promptEvent = deferredInstallPrompt;
+    deferredInstallPrompt = null;
+    promptEvent.prompt();
+    promptEvent.userChoice.finally(() => updateInstallUi());
+  });
+  updateInstallUi();
+  window.setTimeout(updateInstallUi, 1500);
+}
+
+function initSiteActions() {
+  const share = $('share-site');
+  if (share) share.addEventListener('click', shareSite);
+  const copyLink = $('copy-share-link');
+  if (copyLink) {
+    copyLink.addEventListener('click', () => {
+      copyLiveUrl().then(() => showToast('Link copied')).catch(() => {
+        showToast('Copy the link from the address bar');
+      });
+    });
+  }
+  initInstall();
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((reg) => {
+      if (reg && typeof reg.update === 'function') reg.update();
+    }).catch(() => { /* file:// / unsupported hosts */ });
+  }
+}
+
 function wire() {
+  initSiteActions();
   renderMenu();
   $('cart-lines').addEventListener('click', (event) => {
     const btn = event.target.closest('[data-act]');
