@@ -453,13 +453,16 @@ function initInstall() {
     updateInstallUi();
     showToast('Installed');
   });
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (browserIsStandalone()) {
       updateInstallUi();
       return;
     }
     if (!deferredInstallPrompt) {
       showInstallTip();
+      showToast(isIOS() ? 'Use Share → Add to Home Screen' : 'Use browser Install / Add to Home Screen');
       return;
     }
     const promptEvent = deferredInstallPrompt;
@@ -473,7 +476,13 @@ function initInstall() {
 
 function initSiteActions() {
   const share = $('share-site');
-  if (share) share.addEventListener('click', shareSite);
+  if (share) {
+    share.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      shareSite();
+    });
+  }
   const copyLink = $('copy-share-link');
   if (copyLink) {
     copyLink.addEventListener('click', () => {
