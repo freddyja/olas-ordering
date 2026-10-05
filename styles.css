@@ -89,12 +89,15 @@ body {
   width: min(16rem, 70%);
 }
 .phone-line { margin: 0; font-weight: 700; }
-.address { margin: .35rem 0 0; font-weight: 650; }
+.address { margin: .35rem 0 0; font-weight: 750; color: #fff8ee; }
 .address a, .foot a {
-  color: #ffc857;
+  color: #fff8ee;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-color: #ffc857;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
 }
+.address a:hover, .foot a:hover { color: #ffc857; }
 .hours { margin: .2rem 0 .7rem; }
 
 .status {
