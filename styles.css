@@ -89,12 +89,12 @@ body {
   width: min(16rem, 70%);
 }
 .phone-line { margin: 0; font-weight: 700; }
-.address { margin: .35rem 0 0; font-weight: 750; color: #fff8ee; }
+.address { margin: .35rem 0 0; font-weight: 750; color: var(--ink); }
 .address a, .foot a {
-  color: #fff8ee;
+  color: var(--ink);
   text-decoration: none;
 }
-.address a:hover, .foot a:hover { color: #ffc857; }
+.address a:hover, .foot a:hover { color: #9d1c12; }
 .hours { margin: .2rem 0 .7rem; }
 
 .status {
