@@ -1,7 +1,7 @@
 // Ola's order model. Prices are cents so totals cannot drift.
 // Side of beans is omitted on purpose: the printed price was scratched out.
 // Burrito #1 still includes beans as an ingredient, matching the menu.
-// BBQ chicken and pork have no printed price. They stay inquire (null cents).
+// #8 BBQ box: brisket $13.75; chicken and pork $12.75. The daily special stays inquire (null cents).
 
 export const SMS_E164 = '+15052887576';
 export const SMS_DISPLAY = '505-288-7576';
@@ -112,16 +112,16 @@ export const SECTIONS = [
         id: 'bbq-box',
         num: '8',
         name: 'BBQ Sandwich Lunch Box',
-        detail: 'Brisket has a printed price. Chicken and pork do not — they are inquire, not a guessed price.',
+        detail: 'Brisket, chicken, or pork.',
         priceFrom: 'meat',
         options: [
           {
             key: 'meat',
             label: 'Meat',
             choices: [
-              { id: 'brisket', label: 'Brisket', cents: 1275 },
-              { id: 'chicken', label: 'Chicken', inquire: true },
-              { id: 'pork', label: 'Pork', inquire: true },
+              { id: 'brisket', label: 'Brisket', cents: 1375 },
+              { id: 'chicken', label: 'Chicken', cents: 1275 },
+              { id: 'pork', label: 'Pork', cents: 1275 },
             ],
           },
         ],

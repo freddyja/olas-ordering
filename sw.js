@@ -1,4 +1,4 @@
-const CACHE_NAME = "olas-ordering-v13";
+const CACHE_NAME = "olas-ordering-v14";
 const APP_SHELL = [
   "./",
   "./index.html",

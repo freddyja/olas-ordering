@@ -12,7 +12,7 @@ import {
   pricedSubtotalCents,
 } from './order.js';
 
-const ALLOWED_CENTS = new Set([1050, 1150, 1065, 1095, 1195, 900, 1350, 1275, 1800, 2000, 1175, 250, 400, 175, 600, 225]);
+const ALLOWED_CENTS = new Set([1050, 1150, 1065, 1095, 1195, 900, 1350, 1375, 1275, 1800, 2000, 1175, 250, 400, 175, 600, 225]);
 
 test('prices match the posted menu and beans are not a side', () => {
   const items = allItems();
@@ -29,16 +29,23 @@ test('prices match the posted menu and beans are not a side', () => {
     if (/bean/i.test(item.detail || '')) assert.fail(item.id);
   }
   const blob = JSON.stringify(SECTIONS);
-  assert.equal(/\b(13\.75|2\.75|1\.25)\b/.test(blob), false);
+  assert.equal(/\b(2\.75|1\.25)\b/.test(blob), false);
 });
 
-test('bbq chicken and pork are inquire with no dollar amount', () => {
+test('bbq box prices: brisket $13.75, chicken and pork $12.75', () => {
   const box = allItems().find((item) => item.num === '8');
   const column = priceColumn(box);
-  assert.deepEqual(column, ['Brisket: $12.75', 'Chicken: inquire', 'Pork: inquire']);
-  assert.equal(lineUnitCents(box, { meat: 'chicken' }), null);
-  assert.equal(lineUnitCents(box, { meat: 'pork' }), null);
-  assert.equal(lineUnitCents(box, { meat: 'brisket' }), 1275);
+  assert.deepEqual(column, ['Brisket: $13.75', 'Chicken: $12.75', 'Pork: $12.75']);
+  assert.equal(lineUnitCents(box, { meat: 'brisket' }), 1375);
+  assert.equal(lineUnitCents(box, { meat: 'chicken' }), 1275);
+  assert.equal(lineUnitCents(box, { meat: 'pork' }), 1275);
+  assert.equal(/inquire/i.test(box.detail || ''), false);
+});
+
+test('daily special stays inquire with no dollar amount', () => {
+  const special = allItems().find((item) => item.id === 'daily-special');
+  assert.deepEqual(priceColumn(special), ['inquire']);
+  assert.equal(lineUnitCents(special, {}), null);
   const text = buildOrderText({
     name: 'Ada',
     phone: '5055550100',
@@ -46,14 +53,17 @@ test('bbq chicken and pork are inquire with no dollar amount', () => {
     notes: 'no onion',
     lines: [
       { qty: 1, title: '#1 Egg, Cheese, Beans, Potato', optionText: 'Green chili', unitCents: 1050 },
-      { qty: 1, title: '#8 BBQ Sandwich Lunch Box', optionText: 'Chicken', unitCents: null },
+      { qty: 1, title: 'Daily special', optionText: 'Today’s special', unitCents: null },
       { qty: 2, title: 'Potato Salad', optionText: '', unitCents: 250 },
+      { qty: 1, title: '#8 BBQ Sandwich Lunch Box', optionText: 'Chicken', unitCents: 1275 },
     ],
   });
+  const specialLine = text.split('\n').find((line) => line.includes('Daily special'));
+  assert.match(specialLine, /inquire/);
+  assert.equal(specialLine.includes('$'), false);
   const chicken = text.split('\n').find((line) => line.includes('Chicken'));
-  assert.match(chicken, /inquire/);
-  assert.equal(chicken.includes('$'), false);
-  assert.match(text, /Priced subtotal: \$15\.50/);
+  assert.equal(/inquire/.test(chicken), false);
+  assert.match(text, /Priced subtotal: \$28\.25/);
   assert.match(text, /Tax not included/);
   assert.match(text, /Diets: gluten free/);
   assert.equal(pricedSubtotalCents([
@@ -64,13 +74,13 @@ test('bbq chicken and pork are inquire with no dollar amount', () => {
 });
 
 test('sms link round-trips the order body', () => {
-  const body = "Ola's order\nName: Ada\nPhone: 5055550100\n\n1 x #8 BBQ Sandwich Lunch Box (Pork) — inquire\n\nPriced subtotal: $0.00\nTax not included.\nInquire items have no price and are not in the subtotal.";
+  const body = "Ola's order\nName: Ada\nPhone: 5055550100\n\n1 x Daily special (Today’s special) — inquire\n\nPriced subtotal: $0.00\nTax not included.\nInquire items have no price and are not in the subtotal.";
   const url = buildSmsUrl(body);
   assert.equal(url.startsWith('sms:+15052887576?&body='), true);
   const decoded = decodeURIComponent(url.slice(url.indexOf('body=') + 5));
   assert.equal(decoded, body);
   assert.equal(decoded.includes('$12'), false);
-  assert.match(decoded, /Pork\) — inquire/);
+  assert.match(decoded, /special\) — inquire/);
 });
 
 test('hours gate is America/Denver, Wed–Sat 8:00 until 1:00', () => {

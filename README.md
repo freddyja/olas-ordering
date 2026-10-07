@@ -4,6 +4,6 @@ Static menu for Ola's. The customer builds an order in the browser and taps **Se
 
 Hours, enforced in `America/Denver`: Wednesday–Saturday, 8:00 AM until 1:00 PM. At 1:00 PM the send button turns off. Outside those hours the menu stays visible and ordering is closed.
 
-Priced lines add up to a subtotal. Tax is not included. BBQ chicken, BBQ pork, and the daily special are **inquire** — no dollar amount is shown or invented. The beans side is omitted. Burrito #1 is still "Egg, Cheese, Beans, Potato" because beans are part of that burrito.
+Priced lines add up to a subtotal. Tax is not included. The #8 BBQ box is $13.75 for brisket and $12.75 for chicken or pork. The daily special is **inquire** — no dollar amount is shown or invented. The beans side is omitted. Burrito #1 is still "Egg, Cheese, Beans, Potato" because beans are part of that burrito.
 
 The text link is `sms:+15052887576?&body=` so Android reads `?body` and iOS reads `&body`.
